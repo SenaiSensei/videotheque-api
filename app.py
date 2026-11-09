@@ -6,6 +6,8 @@ from utils import register_error_handlers
 app = Flask(__name__)
 app.json.ensure_ascii = False
 register_error_handlers(app)
+from routes.users import bp as users_bp
+app.register_blueprint(users_bp)
 init_db()
 
 
