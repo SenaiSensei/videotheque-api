@@ -41,7 +41,7 @@ def register_error_handlers(app):
     @app.errorhandler(PyMongoError)
     def handle_mongo_error(err):
         app.logger.exception(err)
-        return jsonify("status": 500, {"code": "internal_error", "message": "Base de données indisponible"}), 500
+        return jsonify({"status": 500, "code": "internal_error", "message": "Base de données indisponible"}), 500
 
     @app.errorhandler(Exception)
     def handle_unexpected_error(err):
