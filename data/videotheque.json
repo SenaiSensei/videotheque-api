@@ -19,5 +19,13 @@
       "year": 1985,
       "supports": []
     }
+  ],
+  "users": [
+    {
+      "email": "admin@example.org",
+      "username": "admin",
+      "password": "admin",
+      "roles": ["user", "admin"]
+    }
   ]
 }

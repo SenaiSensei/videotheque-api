@@ -1,8 +1,12 @@
 #!/usr/bin/python3
 from flask import Flask, jsonify
-from db import db
+from db import db, init_db
+from utils import register_error_handlers
 
 app = Flask(__name__)
+app.json.ensure_ascii = False
+register_error_handlers(app)
+init_db()
 
 
 @app.route("/health")
