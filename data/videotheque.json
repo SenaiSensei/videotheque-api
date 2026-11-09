@@ -24,7 +24,7 @@
     {
       "email": "admin@example.org",
       "username": "admin",
-      "password": "admin",
+      "password": "scrypt:32768:8:1$yU4KTMcGwD7AIZmG$06d12f94c1b42e9ccd6890b48ee0a62861882ef4981d670b222dc7923f777c2726e49b1cf8539979a6e7c115e9e1cde7d3282a9e8061c750172599c868048599",
       "roles": ["user", "admin"]
     }
   ]
