@@ -1,0 +1,23 @@
+{
+  "films": [
+    {
+      "title": "Pulp Fiction",
+      "director": {"last_name": "Tarantino", "first_name": "Quentin"},
+      "actors": [
+        {"last_name": "Travolta", "first_name": "John"},
+        {"last_name": "Thurman", "first_name": "Uma"}
+      ],
+      "genres": ["Policier", "Drame"],
+      "year": 1994,
+      "supports": [{"type": "bluray", "location": "Étagère A3"}]
+    },
+    {
+      "title": "Ran",
+      "director": {"last_name": "Kurosawa", "first_name": "Akira"},
+      "actors": [{"last_name": "Nakadai", "first_name": "Tatsuya"}],
+      "genres": ["Drame"],
+      "year": 1985,
+      "supports": []
+    }
+  ]
+}
