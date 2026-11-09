@@ -2,22 +2,1785 @@
   "films": [
     {
       "title": "Pulp Fiction",
-      "director": {"last_name": "Tarantino", "first_name": "Quentin"},
+      "description": "Plusieurs histoires de truands, de boxeur et de braqueurs s'entremêlent à Los Angeles.",
+      "director": {
+        "last_name": "Tarantino",
+        "first_name": "Quentin"
+      },
       "actors": [
-        {"last_name": "Travolta", "first_name": "John"},
-        {"last_name": "Thurman", "first_name": "Uma"}
+        {
+          "last_name": "Travolta",
+          "first_name": "John"
+        },
+        {
+          "last_name": "Thurman",
+          "first_name": "Uma"
+        },
+        {
+          "last_name": "Jackson",
+          "first_name": "Samuel L."
+        },
+        {
+          "last_name": "Willis",
+          "first_name": "Bruce"
+        }
       ],
-      "genres": ["Policier", "Drame"],
+      "genres": [
+        "Policier",
+        "Drame"
+      ],
       "year": 1994,
-      "supports": [{"type": "bluray", "location": "Étagère A3"}]
+      "supports": [
+        {
+          "type": "dvd",
+          "location": "Étagère A1"
+        }
+      ]
     },
     {
       "title": "Ran",
-      "director": {"last_name": "Kurosawa", "first_name": "Akira"},
-      "actors": [{"last_name": "Nakadai", "first_name": "Tatsuya"}],
-      "genres": ["Drame"],
+      "description": "Un seigneur vieillissant partage son domaine entre ses trois fils, ce qui déclenche une guerre fratricide.",
+      "director": {
+        "last_name": "Kurosawa",
+        "first_name": "Akira"
+      },
+      "actors": [
+        {
+          "last_name": "Nakadai",
+          "first_name": "Tatsuya"
+        },
+        {
+          "last_name": "Harada",
+          "first_name": "Mieko"
+        }
+      ],
+      "genres": [
+        "Drame",
+        "Guerre"
+      ],
       "year": 1985,
+      "supports": [
+        {
+          "type": "bluray",
+          "location": "Étagère B2"
+        }
+      ]
+    },
+    {
+      "title": "Alien",
+      "description": "L'équipage d'un cargo spatial est traqué par une créature extraterrestre.",
+      "director": {
+        "last_name": "Scott",
+        "first_name": "Ridley"
+      },
+      "actors": [
+        {
+          "last_name": "Weaver",
+          "first_name": "Sigourney"
+        },
+        {
+          "last_name": "Skerritt",
+          "first_name": "Tom"
+        },
+        {
+          "last_name": "Hurt",
+          "first_name": "John"
+        }
+      ],
+      "genres": [
+        "Science-fiction",
+        "Horreur"
+      ],
+      "year": 1979,
+      "supports": [
+        {
+          "type": "digital",
+          "location": "/films/alien.mkv"
+        }
+      ]
+    },
+    {
+      "title": "Le Fabuleux Destin d'Amélie Poulain",
+      "description": "À Montmartre, une jeune serveuse décide de faire le bonheur des gens qui l'entourent.",
+      "director": {
+        "last_name": "Jeunet",
+        "first_name": "Jean-Pierre"
+      },
+      "actors": [
+        {
+          "last_name": "Tautou",
+          "first_name": "Audrey"
+        },
+        {
+          "last_name": "Kassovitz",
+          "first_name": "Mathieu"
+        }
+      ],
+      "genres": [
+        "Comédie",
+        "Romance"
+      ],
+      "year": 2001,
+      "supports": [
+        {
+          "type": "bluray",
+          "location": "Étagère D4"
+        },
+        {
+          "type": "digital",
+          "location": "/films/le_fabuleux_destin_d_amelie_poulain.mkv"
+        }
+      ]
+    },
+    {
+      "title": "La Haine",
+      "description": "Vingt-quatre heures dans la vie de trois jeunes de banlieue, au lendemain d'une émeute.",
+      "director": {
+        "last_name": "Kassovitz",
+        "first_name": "Mathieu"
+      },
+      "actors": [
+        {
+          "last_name": "Cassel",
+          "first_name": "Vincent"
+        },
+        {
+          "last_name": "Koundé",
+          "first_name": "Hubert"
+        },
+        {
+          "last_name": "Taghmaoui",
+          "first_name": "Saïd"
+        }
+      ],
+      "genres": [
+        "Drame"
+      ],
+      "year": 1995,
+      "supports": [
+        {
+          "type": "dvd",
+          "location": "Étagère E5"
+        },
+        {
+          "type": "digital",
+          "location": "/films/la_haine.mkv"
+        }
+      ]
+    },
+    {
+      "title": "Le Parrain",
+      "description": "Le chef d'une famille de la mafia new-yorkaise transmet peu à peu son empire à son plus jeune fils.",
+      "director": {
+        "last_name": "Coppola",
+        "first_name": "Francis Ford"
+      },
+      "actors": [
+        {
+          "last_name": "Brando",
+          "first_name": "Marlon"
+        },
+        {
+          "last_name": "Pacino",
+          "first_name": "Al"
+        },
+        {
+          "last_name": "Caan",
+          "first_name": "James"
+        }
+      ],
+      "genres": [
+        "Policier",
+        "Drame"
+      ],
+      "year": 1972,
+      "supports": [
+        {
+          "type": "dvd",
+          "location": "Étagère F6"
+        },
+        {
+          "type": "bluray",
+          "location": "Étagère F6"
+        }
+      ]
+    },
+    {
+      "title": "Le Voyage de Chihiro",
+      "description": "Une fillette se retrouve piégée dans un monde peuplé d'esprits et doit sauver ses parents.",
+      "director": {
+        "last_name": "Miyazaki",
+        "first_name": "Hayao"
+      },
+      "actors": [
+        {
+          "last_name": "Hiiragi",
+          "first_name": "Rumi"
+        },
+        {
+          "last_name": "Irino",
+          "first_name": "Miyu"
+        }
+      ],
+      "genres": [
+        "Animation",
+        "Fantastique"
+      ],
+      "year": 2001,
       "supports": []
+    },
+    {
+      "title": "Mon voisin Totoro",
+      "description": "Deux sœurs installées à la campagne découvrent les créatures de la forêt voisine.",
+      "director": {
+        "last_name": "Miyazaki",
+        "first_name": "Hayao"
+      },
+      "actors": [
+        {
+          "last_name": "Hidaka",
+          "first_name": "Noriko"
+        },
+        {
+          "last_name": "Sakamoto",
+          "first_name": "Chika"
+        }
+      ],
+      "genres": [
+        "Animation",
+        "Famille"
+      ],
+      "year": 1988,
+      "supports": [
+        {
+          "type": "bluray",
+          "location": "Étagère B8"
+        }
+      ]
+    },
+    {
+      "title": "Inception",
+      "description": "Un voleur spécialisé dans l'extraction de secrets à travers les rêves doit implanter une idée.",
+      "director": {
+        "last_name": "Nolan",
+        "first_name": "Christopher"
+      },
+      "actors": [
+        {
+          "last_name": "DiCaprio",
+          "first_name": "Leonardo"
+        },
+        {
+          "last_name": "Gordon-Levitt",
+          "first_name": "Joseph"
+        },
+        {
+          "last_name": "Page",
+          "first_name": "Elliot"
+        },
+        {
+          "last_name": "Cotillard",
+          "first_name": "Marion"
+        }
+      ],
+      "genres": [
+        "Science-fiction",
+        "Action"
+      ],
+      "year": 2010,
+      "supports": [
+        {
+          "type": "dvd",
+          "location": "Étagère C9"
+        }
+      ]
+    },
+    {
+      "title": "Interstellar",
+      "description": "Des astronautes traversent un trou de ver pour trouver une nouvelle planète habitable.",
+      "director": {
+        "last_name": "Nolan",
+        "first_name": "Christopher"
+      },
+      "actors": [
+        {
+          "last_name": "McConaughey",
+          "first_name": "Matthew"
+        },
+        {
+          "last_name": "Hathaway",
+          "first_name": "Anne"
+        },
+        {
+          "last_name": "Chastain",
+          "first_name": "Jessica"
+        }
+      ],
+      "genres": [
+        "Science-fiction",
+        "Drame"
+      ],
+      "year": 2014,
+      "supports": [
+        {
+          "type": "dvd",
+          "location": "Étagère D1"
+        },
+        {
+          "type": "bluray",
+          "location": "Étagère D1"
+        },
+        {
+          "type": "digital",
+          "location": "/films/interstellar.mkv"
+        }
+      ]
+    },
+    {
+      "title": "The Dark Knight",
+      "description": "Batman affronte le Joker, un criminel qui sème le chaos à Gotham.",
+      "director": {
+        "last_name": "Nolan",
+        "first_name": "Christopher"
+      },
+      "actors": [
+        {
+          "last_name": "Bale",
+          "first_name": "Christian"
+        },
+        {
+          "last_name": "Ledger",
+          "first_name": "Heath"
+        },
+        {
+          "last_name": "Eckhart",
+          "first_name": "Aaron"
+        }
+      ],
+      "genres": [
+        "Action",
+        "Policier"
+      ],
+      "year": 2008,
+      "supports": [
+        {
+          "type": "dvd",
+          "location": "Étagère E2"
+        }
+      ]
+    },
+    {
+      "title": "Oppenheimer",
+      "description": "Le parcours du physicien qui a dirigé la mise au point de la bombe atomique.",
+      "director": {
+        "last_name": "Nolan",
+        "first_name": "Christopher"
+      },
+      "actors": [
+        {
+          "last_name": "Murphy",
+          "first_name": "Cillian"
+        },
+        {
+          "last_name": "Blunt",
+          "first_name": "Emily"
+        },
+        {
+          "last_name": "Downey Jr.",
+          "first_name": "Robert"
+        }
+      ],
+      "genres": [
+        "Drame",
+        "Biographie"
+      ],
+      "year": 2023,
+      "supports": [
+        {
+          "type": "bluray",
+          "location": "Étagère F3"
+        }
+      ]
+    },
+    {
+      "title": "Matrix",
+      "description": "Un pirate informatique découvre que le monde qu'il connaît est une simulation.",
+      "director": {
+        "last_name": "Wachowski",
+        "first_name": "Lana et Lilly"
+      },
+      "actors": [
+        {
+          "last_name": "Reeves",
+          "first_name": "Keanu"
+        },
+        {
+          "last_name": "Fishburne",
+          "first_name": "Laurence"
+        },
+        {
+          "last_name": "Moss",
+          "first_name": "Carrie-Anne"
+        }
+      ],
+      "genres": [
+        "Science-fiction",
+        "Action"
+      ],
+      "year": 1999,
+      "supports": [
+        {
+          "type": "digital",
+          "location": "/films/matrix.mkv"
+        }
+      ]
+    },
+    {
+      "title": "Blade Runner",
+      "description": "Dans un Los Angeles futuriste, un policier traque des androïdes en fuite.",
+      "director": {
+        "last_name": "Scott",
+        "first_name": "Ridley"
+      },
+      "actors": [
+        {
+          "last_name": "Ford",
+          "first_name": "Harrison"
+        },
+        {
+          "last_name": "Hauer",
+          "first_name": "Rutger"
+        },
+        {
+          "last_name": "Young",
+          "first_name": "Sean"
+        }
+      ],
+      "genres": [
+        "Science-fiction",
+        "Policier"
+      ],
+      "year": 1982,
+      "supports": [
+        {
+          "type": "bluray",
+          "location": "Étagère B5"
+        },
+        {
+          "type": "digital",
+          "location": "/films/blade_runner.mkv"
+        }
+      ]
+    },
+    {
+      "title": "Gladiator",
+      "description": "Un général romain trahi devient gladiateur pour se venger de l'empereur.",
+      "director": {
+        "last_name": "Scott",
+        "first_name": "Ridley"
+      },
+      "actors": [
+        {
+          "last_name": "Crowe",
+          "first_name": "Russell"
+        },
+        {
+          "last_name": "Phoenix",
+          "first_name": "Joaquin"
+        }
+      ],
+      "genres": [
+        "Action",
+        "Historique"
+      ],
+      "year": 2000,
+      "supports": [
+        {
+          "type": "dvd",
+          "location": "Étagère C6"
+        },
+        {
+          "type": "digital",
+          "location": "/films/gladiator.mkv"
+        }
+      ]
+    },
+    {
+      "title": "2001 : l'Odyssée de l'espace",
+      "description": "De l'aube de l'humanité à une mission vers Jupiter, guidée par un mystérieux monolithe.",
+      "director": {
+        "last_name": "Kubrick",
+        "first_name": "Stanley"
+      },
+      "actors": [
+        {
+          "last_name": "Dullea",
+          "first_name": "Keir"
+        },
+        {
+          "last_name": "Lockwood",
+          "first_name": "Gary"
+        }
+      ],
+      "genres": [
+        "Science-fiction"
+      ],
+      "year": 1968,
+      "supports": [
+        {
+          "type": "dvd",
+          "location": "Étagère D7"
+        },
+        {
+          "type": "bluray",
+          "location": "Étagère D7"
+        }
+      ]
+    },
+    {
+      "title": "Shining",
+      "description": "Un écrivain devient gardien d'un hôtel isolé pour l'hiver et sombre dans la folie.",
+      "director": {
+        "last_name": "Kubrick",
+        "first_name": "Stanley"
+      },
+      "actors": [
+        {
+          "last_name": "Nicholson",
+          "first_name": "Jack"
+        },
+        {
+          "last_name": "Duvall",
+          "first_name": "Shelley"
+        }
+      ],
+      "genres": [
+        "Horreur"
+      ],
+      "year": 1980,
+      "supports": []
+    },
+    {
+      "title": "Orange mécanique",
+      "description": "Un jeune délinquant violent subit un traitement expérimental de reconditionnement.",
+      "director": {
+        "last_name": "Kubrick",
+        "first_name": "Stanley"
+      },
+      "actors": [
+        {
+          "last_name": "McDowell",
+          "first_name": "Malcolm"
+        }
+      ],
+      "genres": [
+        "Drame",
+        "Science-fiction"
+      ],
+      "year": 1971,
+      "supports": [
+        {
+          "type": "bluray",
+          "location": "Étagère F9"
+        }
+      ]
+    },
+    {
+      "title": "Les Sept Samouraïs",
+      "description": "Des villageois engagent sept samouraïs pour les protéger d'une bande de brigands.",
+      "director": {
+        "last_name": "Kurosawa",
+        "first_name": "Akira"
+      },
+      "actors": [
+        {
+          "last_name": "Mifune",
+          "first_name": "Toshirō"
+        },
+        {
+          "last_name": "Shimura",
+          "first_name": "Takashi"
+        }
+      ],
+      "genres": [
+        "Aventure",
+        "Drame"
+      ],
+      "year": 1954,
+      "supports": [
+        {
+          "type": "dvd",
+          "location": "Étagère A1"
+        }
+      ]
+    },
+    {
+      "title": "Psychose",
+      "description": "Une secrétaire en fuite s'arrête dans un motel tenu par un jeune homme étrange.",
+      "director": {
+        "last_name": "Hitchcock",
+        "first_name": "Alfred"
+      },
+      "actors": [
+        {
+          "last_name": "Perkins",
+          "first_name": "Anthony"
+        },
+        {
+          "last_name": "Leigh",
+          "first_name": "Janet"
+        }
+      ],
+      "genres": [
+        "Thriller",
+        "Horreur"
+      ],
+      "year": 1960,
+      "supports": [
+        {
+          "type": "dvd",
+          "location": "Étagère B2"
+        },
+        {
+          "type": "bluray",
+          "location": "Étagère B2"
+        },
+        {
+          "type": "digital",
+          "location": "/films/psychose.mkv"
+        }
+      ]
+    },
+    {
+      "title": "Sueurs froides",
+      "description": "Un ancien policier sujet au vertige est chargé de suivre une femme mystérieuse.",
+      "director": {
+        "last_name": "Hitchcock",
+        "first_name": "Alfred"
+      },
+      "actors": [
+        {
+          "last_name": "Stewart",
+          "first_name": "James"
+        },
+        {
+          "last_name": "Novak",
+          "first_name": "Kim"
+        }
+      ],
+      "genres": [
+        "Thriller"
+      ],
+      "year": 1958,
+      "supports": [
+        {
+          "type": "dvd",
+          "location": "Étagère C3"
+        }
+      ]
+    },
+    {
+      "title": "Le Bon, la Brute et le Truand",
+      "description": "Trois hommes se disputent un trésor caché pendant la guerre de Sécession.",
+      "director": {
+        "last_name": "Leone",
+        "first_name": "Sergio"
+      },
+      "actors": [
+        {
+          "last_name": "Eastwood",
+          "first_name": "Clint"
+        },
+        {
+          "last_name": "Wallach",
+          "first_name": "Eli"
+        },
+        {
+          "last_name": "Van Cleef",
+          "first_name": "Lee"
+        }
+      ],
+      "genres": [
+        "Western"
+      ],
+      "year": 1966,
+      "supports": [
+        {
+          "type": "bluray",
+          "location": "Étagère D4"
+        }
+      ]
+    },
+    {
+      "title": "Il était une fois dans l'Ouest",
+      "description": "L'arrivée du chemin de fer attise les convoitises autour d'un terrain de l'Ouest.",
+      "director": {
+        "last_name": "Leone",
+        "first_name": "Sergio"
+      },
+      "actors": [
+        {
+          "last_name": "Fonda",
+          "first_name": "Henry"
+        },
+        {
+          "last_name": "Cardinale",
+          "first_name": "Claudia"
+        },
+        {
+          "last_name": "Bronson",
+          "first_name": "Charles"
+        }
+      ],
+      "genres": [
+        "Western"
+      ],
+      "year": 1968,
+      "supports": [
+        {
+          "type": "digital",
+          "location": "/films/il_etait_une_fois_dans_l_ouest.mkv"
+        }
+      ]
+    },
+    {
+      "title": "Les Évadés",
+      "description": "Un banquier condamné à tort se lie d'amitié avec un détenu pendant de longues années.",
+      "director": {
+        "last_name": "Darabont",
+        "first_name": "Frank"
+      },
+      "actors": [
+        {
+          "last_name": "Robbins",
+          "first_name": "Tim"
+        },
+        {
+          "last_name": "Freeman",
+          "first_name": "Morgan"
+        }
+      ],
+      "genres": [
+        "Drame"
+      ],
+      "year": 1994,
+      "supports": [
+        {
+          "type": "bluray",
+          "location": "Étagère F6"
+        },
+        {
+          "type": "digital",
+          "location": "/films/les_evades.mkv"
+        }
+      ]
+    },
+    {
+      "title": "Forrest Gump",
+      "description": "Un homme simple traverse sans le vouloir les grands événements de l'histoire américaine.",
+      "director": {
+        "last_name": "Zemeckis",
+        "first_name": "Robert"
+      },
+      "actors": [
+        {
+          "last_name": "Hanks",
+          "first_name": "Tom"
+        },
+        {
+          "last_name": "Wright",
+          "first_name": "Robin"
+        },
+        {
+          "last_name": "Sinise",
+          "first_name": "Gary"
+        }
+      ],
+      "genres": [
+        "Drame",
+        "Comédie"
+      ],
+      "year": 1994,
+      "supports": [
+        {
+          "type": "dvd",
+          "location": "Étagère A7"
+        },
+        {
+          "type": "digital",
+          "location": "/films/forrest_gump.mkv"
+        }
+      ]
+    },
+    {
+      "title": "Retour vers le futur",
+      "description": "Un adolescent remonte le temps à bord d'une DeLorean et perturbe la rencontre de ses parents.",
+      "director": {
+        "last_name": "Zemeckis",
+        "first_name": "Robert"
+      },
+      "actors": [
+        {
+          "last_name": "Fox",
+          "first_name": "Michael J."
+        },
+        {
+          "last_name": "Lloyd",
+          "first_name": "Christopher"
+        }
+      ],
+      "genres": [
+        "Science-fiction",
+        "Comédie",
+        "Aventure"
+      ],
+      "year": 1985,
+      "supports": [
+        {
+          "type": "dvd",
+          "location": "Étagère B8"
+        },
+        {
+          "type": "bluray",
+          "location": "Étagère B8"
+        }
+      ]
+    },
+    {
+      "title": "Jurassic Park",
+      "description": "Un parc d'attractions peuplé de dinosaures clonés échappe à tout contrôle.",
+      "director": {
+        "last_name": "Spielberg",
+        "first_name": "Steven"
+      },
+      "actors": [
+        {
+          "last_name": "Neill",
+          "first_name": "Sam"
+        },
+        {
+          "last_name": "Dern",
+          "first_name": "Laura"
+        },
+        {
+          "last_name": "Goldblum",
+          "first_name": "Jeff"
+        }
+      ],
+      "genres": [
+        "Aventure",
+        "Science-fiction"
+      ],
+      "year": 1993,
+      "supports": []
+    },
+    {
+      "title": "Les Dents de la mer",
+      "description": "Un grand requin blanc terrorise une station balnéaire au début de l'été.",
+      "director": {
+        "last_name": "Spielberg",
+        "first_name": "Steven"
+      },
+      "actors": [
+        {
+          "last_name": "Scheider",
+          "first_name": "Roy"
+        },
+        {
+          "last_name": "Shaw",
+          "first_name": "Robert"
+        },
+        {
+          "last_name": "Dreyfuss",
+          "first_name": "Richard"
+        }
+      ],
+      "genres": [
+        "Thriller",
+        "Aventure"
+      ],
+      "year": 1975,
+      "supports": [
+        {
+          "type": "bluray",
+          "location": "Étagère D1"
+        }
+      ]
+    },
+    {
+      "title": "Il faut sauver le soldat Ryan",
+      "description": "Après le Débarquement, une escouade part retrouver un soldat dont les frères sont morts au combat.",
+      "director": {
+        "last_name": "Spielberg",
+        "first_name": "Steven"
+      },
+      "actors": [
+        {
+          "last_name": "Hanks",
+          "first_name": "Tom"
+        },
+        {
+          "last_name": "Damon",
+          "first_name": "Matt"
+        }
+      ],
+      "genres": [
+        "Guerre",
+        "Drame"
+      ],
+      "year": 1998,
+      "supports": [
+        {
+          "type": "dvd",
+          "location": "Étagère E2"
+        }
+      ]
+    },
+    {
+      "title": "Le Seigneur des anneaux : La Communauté de l'anneau",
+      "description": "Un jeune hobbit se lance dans une quête pour détruire un anneau maléfique.",
+      "director": {
+        "last_name": "Jackson",
+        "first_name": "Peter"
+      },
+      "actors": [
+        {
+          "last_name": "Wood",
+          "first_name": "Elijah"
+        },
+        {
+          "last_name": "McKellen",
+          "first_name": "Ian"
+        },
+        {
+          "last_name": "Mortensen",
+          "first_name": "Viggo"
+        }
+      ],
+      "genres": [
+        "Fantastique",
+        "Aventure"
+      ],
+      "year": 2001,
+      "supports": [
+        {
+          "type": "dvd",
+          "location": "Étagère F3"
+        },
+        {
+          "type": "bluray",
+          "location": "Étagère F3"
+        },
+        {
+          "type": "digital",
+          "location": "/films/le_seigneur_des_anneaux_la_communaute_de_l_anneau.mkv"
+        }
+      ]
+    },
+    {
+      "title": "Parasite",
+      "description": "Une famille pauvre s'infiltre peu à peu au service d'une famille aisée.",
+      "director": {
+        "last_name": "Bong",
+        "first_name": "Joon-ho"
+      },
+      "actors": [
+        {
+          "last_name": "Song",
+          "first_name": "Kang-ho"
+        },
+        {
+          "last_name": "Choi",
+          "first_name": "Woo-shik"
+        },
+        {
+          "last_name": "Park",
+          "first_name": "So-dam"
+        }
+      ],
+      "genres": [
+        "Thriller",
+        "Drame"
+      ],
+      "year": 2019,
+      "supports": [
+        {
+          "type": "dvd",
+          "location": "Étagère A4"
+        }
+      ]
+    },
+    {
+      "title": "Intouchables",
+      "description": "Un riche tétraplégique engage comme aide à domicile un jeune homme de banlieue.",
+      "director": {
+        "last_name": "Nakache et Toledano",
+        "first_name": ""
+      },
+      "actors": [
+        {
+          "last_name": "Cluzet",
+          "first_name": "François"
+        },
+        {
+          "last_name": "Sy",
+          "first_name": "Omar"
+        }
+      ],
+      "genres": [
+        "Comédie",
+        "Drame"
+      ],
+      "year": 2011,
+      "supports": [
+        {
+          "type": "bluray",
+          "location": "Étagère B5"
+        }
+      ]
+    },
+    {
+      "title": "Les Visiteurs",
+      "description": "Un chevalier du Moyen Âge et son écuyer sont projetés à la fin du XXe siècle.",
+      "director": {
+        "last_name": "Poiré",
+        "first_name": "Jean-Marie"
+      },
+      "actors": [
+        {
+          "last_name": "Reno",
+          "first_name": "Jean"
+        },
+        {
+          "last_name": "Clavier",
+          "first_name": "Christian"
+        },
+        {
+          "last_name": "Lemercier",
+          "first_name": "Valérie"
+        }
+      ],
+      "genres": [
+        "Comédie",
+        "Fantastique"
+      ],
+      "year": 1993,
+      "supports": [
+        {
+          "type": "digital",
+          "location": "/films/les_visiteurs.mkv"
+        }
+      ]
+    },
+    {
+      "title": "Le Dîner de cons",
+      "description": "Un éditeur invite un homme naïf à un dîner où chacun doit amener un « con ».",
+      "director": {
+        "last_name": "Veber",
+        "first_name": "Francis"
+      },
+      "actors": [
+        {
+          "last_name": "Lhermitte",
+          "first_name": "Thierry"
+        },
+        {
+          "last_name": "Villeret",
+          "first_name": "Jacques"
+        }
+      ],
+      "genres": [
+        "Comédie"
+      ],
+      "year": 1998,
+      "supports": [
+        {
+          "type": "bluray",
+          "location": "Étagère D7"
+        },
+        {
+          "type": "digital",
+          "location": "/films/le_diner_de_cons.mkv"
+        }
+      ]
+    },
+    {
+      "title": "Léon",
+      "description": "Un tueur à gages solitaire recueille une fillette dont la famille a été assassinée.",
+      "director": {
+        "last_name": "Besson",
+        "first_name": "Luc"
+      },
+      "actors": [
+        {
+          "last_name": "Reno",
+          "first_name": "Jean"
+        },
+        {
+          "last_name": "Portman",
+          "first_name": "Natalie"
+        },
+        {
+          "last_name": "Oldman",
+          "first_name": "Gary"
+        }
+      ],
+      "genres": [
+        "Policier",
+        "Action"
+      ],
+      "year": 1994,
+      "supports": [
+        {
+          "type": "dvd",
+          "location": "Étagère E8"
+        },
+        {
+          "type": "digital",
+          "location": "/films/leon.mkv"
+        }
+      ]
+    },
+    {
+      "title": "Le Cinquième Élément",
+      "description": "Un chauffeur de taxi du XXIIIe siècle doit protéger la clé du salut de l'humanité.",
+      "director": {
+        "last_name": "Besson",
+        "first_name": "Luc"
+      },
+      "actors": [
+        {
+          "last_name": "Willis",
+          "first_name": "Bruce"
+        },
+        {
+          "last_name": "Jovovich",
+          "first_name": "Milla"
+        },
+        {
+          "last_name": "Oldman",
+          "first_name": "Gary"
+        }
+      ],
+      "genres": [
+        "Science-fiction",
+        "Action"
+      ],
+      "year": 1997,
+      "supports": [
+        {
+          "type": "dvd",
+          "location": "Étagère F9"
+        },
+        {
+          "type": "bluray",
+          "location": "Étagère F9"
+        }
+      ]
+    },
+    {
+      "title": "Titanic",
+      "description": "Une histoire d'amour à bord du paquebot lors de son naufrage en 1912.",
+      "director": {
+        "last_name": "Cameron",
+        "first_name": "James"
+      },
+      "actors": [
+        {
+          "last_name": "DiCaprio",
+          "first_name": "Leonardo"
+        },
+        {
+          "last_name": "Winslet",
+          "first_name": "Kate"
+        }
+      ],
+      "genres": [
+        "Romance",
+        "Drame"
+      ],
+      "year": 1997,
+      "supports": []
+    },
+    {
+      "title": "Terminator 2 : Le Jugement dernier",
+      "description": "Un cyborg venu du futur protège un adolescent destiné à sauver l'humanité.",
+      "director": {
+        "last_name": "Cameron",
+        "first_name": "James"
+      },
+      "actors": [
+        {
+          "last_name": "Schwarzenegger",
+          "first_name": "Arnold"
+        },
+        {
+          "last_name": "Hamilton",
+          "first_name": "Linda"
+        },
+        {
+          "last_name": "Furlong",
+          "first_name": "Edward"
+        }
+      ],
+      "genres": [
+        "Science-fiction",
+        "Action"
+      ],
+      "year": 1991,
+      "supports": [
+        {
+          "type": "bluray",
+          "location": "Étagère B2"
+        }
+      ]
+    },
+    {
+      "title": "Fight Club",
+      "description": "Un employé insomniaque fonde un club de combat clandestin avec un mystérieux vendeur de savon.",
+      "director": {
+        "last_name": "Fincher",
+        "first_name": "David"
+      },
+      "actors": [
+        {
+          "last_name": "Pitt",
+          "first_name": "Brad"
+        },
+        {
+          "last_name": "Norton",
+          "first_name": "Edward"
+        },
+        {
+          "last_name": "Bonham Carter",
+          "first_name": "Helena"
+        }
+      ],
+      "genres": [
+        "Drame",
+        "Thriller"
+      ],
+      "year": 1999,
+      "supports": [
+        {
+          "type": "dvd",
+          "location": "Étagère C3"
+        }
+      ]
+    },
+    {
+      "title": "Se7en",
+      "description": "Deux inspecteurs traquent un tueur qui s'inspire des sept péchés capitaux.",
+      "director": {
+        "last_name": "Fincher",
+        "first_name": "David"
+      },
+      "actors": [
+        {
+          "last_name": "Pitt",
+          "first_name": "Brad"
+        },
+        {
+          "last_name": "Freeman",
+          "first_name": "Morgan"
+        },
+        {
+          "last_name": "Paltrow",
+          "first_name": "Gwyneth"
+        }
+      ],
+      "genres": [
+        "Thriller",
+        "Policier"
+      ],
+      "year": 1995,
+      "supports": [
+        {
+          "type": "dvd",
+          "location": "Étagère D4"
+        },
+        {
+          "type": "bluray",
+          "location": "Étagère D4"
+        },
+        {
+          "type": "digital",
+          "location": "/films/se7en.mkv"
+        }
+      ]
+    },
+    {
+      "title": "Le Silence des agneaux",
+      "description": "Une stagiaire du FBI sollicite l'aide d'un psychiatre cannibale pour arrêter un tueur.",
+      "director": {
+        "last_name": "Demme",
+        "first_name": "Jonathan"
+      },
+      "actors": [
+        {
+          "last_name": "Foster",
+          "first_name": "Jodie"
+        },
+        {
+          "last_name": "Hopkins",
+          "first_name": "Anthony"
+        }
+      ],
+      "genres": [
+        "Thriller",
+        "Horreur"
+      ],
+      "year": 1991,
+      "supports": [
+        {
+          "type": "dvd",
+          "location": "Étagère E5"
+        }
+      ]
+    },
+    {
+      "title": "La La Land",
+      "description": "À Los Angeles, un pianiste de jazz et une aspirante actrice poursuivent leurs rêves.",
+      "director": {
+        "last_name": "Chazelle",
+        "first_name": "Damien"
+      },
+      "actors": [
+        {
+          "last_name": "Gosling",
+          "first_name": "Ryan"
+        },
+        {
+          "last_name": "Stone",
+          "first_name": "Emma"
+        }
+      ],
+      "genres": [
+        "Comédie musicale",
+        "Romance"
+      ],
+      "year": 2016,
+      "supports": [
+        {
+          "type": "bluray",
+          "location": "Étagère F6"
+        }
+      ]
+    },
+    {
+      "title": "Whiplash",
+      "description": "Un jeune batteur subit l'enseignement impitoyable d'un chef d'orchestre.",
+      "director": {
+        "last_name": "Chazelle",
+        "first_name": "Damien"
+      },
+      "actors": [
+        {
+          "last_name": "Teller",
+          "first_name": "Miles"
+        },
+        {
+          "last_name": "Simmons",
+          "first_name": "J. K."
+        }
+      ],
+      "genres": [
+        "Drame",
+        "Musical"
+      ],
+      "year": 2014,
+      "supports": [
+        {
+          "type": "digital",
+          "location": "/films/whiplash.mkv"
+        }
+      ]
+    },
+    {
+      "title": "Mad Max : Fury Road",
+      "description": "Dans un désert post-apocalyptique, une guerrière fuit un tyran avec l'aide de Max.",
+      "director": {
+        "last_name": "Miller",
+        "first_name": "George"
+      },
+      "actors": [
+        {
+          "last_name": "Hardy",
+          "first_name": "Tom"
+        },
+        {
+          "last_name": "Theron",
+          "first_name": "Charlize"
+        },
+        {
+          "last_name": "Hoult",
+          "first_name": "Nicholas"
+        }
+      ],
+      "genres": [
+        "Action",
+        "Science-fiction"
+      ],
+      "year": 2015,
+      "supports": [
+        {
+          "type": "bluray",
+          "location": "Étagère B8"
+        },
+        {
+          "type": "digital",
+          "location": "/films/mad_max_fury_road.mkv"
+        }
+      ]
+    },
+    {
+      "title": "Le Roi lion",
+      "description": "Un jeune lionceau doit reprendre sa place de roi après la mort de son père.",
+      "director": {
+        "last_name": "Allers",
+        "first_name": "Roger"
+      },
+      "actors": [],
+      "genres": [
+        "Animation",
+        "Famille"
+      ],
+      "year": 1994,
+      "supports": [
+        {
+          "type": "dvd",
+          "location": "Étagère C9"
+        },
+        {
+          "type": "digital",
+          "location": "/films/le_roi_lion.mkv"
+        }
+      ]
+    },
+    {
+      "title": "Toy Story",
+      "description": "Les jouets d'un enfant prennent vie lorsqu'il a le dos tourné.",
+      "director": {
+        "last_name": "Lasseter",
+        "first_name": "John"
+      },
+      "actors": [
+        {
+          "last_name": "Hanks",
+          "first_name": "Tom"
+        },
+        {
+          "last_name": "Allen",
+          "first_name": "Tim"
+        }
+      ],
+      "genres": [
+        "Animation",
+        "Comédie"
+      ],
+      "year": 1995,
+      "supports": [
+        {
+          "type": "dvd",
+          "location": "Étagère D1"
+        },
+        {
+          "type": "bluray",
+          "location": "Étagère D1"
+        }
+      ]
+    },
+    {
+      "title": "Nosferatu le vampire",
+      "description": "Un agent immobilier se rend en Transylvanie chez le mystérieux comte Orlok.",
+      "director": {
+        "last_name": "Murnau",
+        "first_name": "F. W."
+      },
+      "actors": [
+        {
+          "last_name": "Schreck",
+          "first_name": "Max"
+        }
+      ],
+      "genres": [
+        "Horreur"
+      ],
+      "year": 1922,
+      "supports": []
+    },
+    {
+      "title": "Metropolis",
+      "description": "Dans une ville futuriste, le fils du maître de la cité découvre la condition des ouvriers.",
+      "director": {
+        "last_name": "Lang",
+        "first_name": "Fritz"
+      },
+      "actors": [
+        {
+          "last_name": "Helm",
+          "first_name": "Brigitte"
+        },
+        {
+          "last_name": "Fröhlich",
+          "first_name": "Gustav"
+        }
+      ],
+      "genres": [
+        "Science-fiction"
+      ],
+      "year": 1927,
+      "supports": [
+        {
+          "type": "bluray",
+          "location": "Étagère F3"
+        }
+      ]
+    },
+    {
+      "title": "Le Voyage dans la Lune",
+      "description": "Des savants embarquent dans un obus tiré par un canon géant pour rejoindre la Lune.",
+      "director": {
+        "last_name": "Méliès",
+        "first_name": "Georges"
+      },
+      "actors": [],
+      "genres": [
+        "Science-fiction",
+        "Court métrage"
+      ],
+      "year": 1902,
+      "supports": [
+        {
+          "type": "dvd",
+          "location": "Étagère A4"
+        }
+      ]
+    },
+    {
+      "title": "Dune",
+      "description": "L'héritier d'une grande maison est envoyé sur la planète désertique Arrakis.",
+      "director": {
+        "last_name": "Villeneuve",
+        "first_name": "Denis"
+      },
+      "actors": [
+        {
+          "last_name": "Chalamet",
+          "first_name": "Timothée"
+        },
+        {
+          "last_name": "Ferguson",
+          "first_name": "Rebecca"
+        },
+        {
+          "last_name": "Zendaya",
+          "first_name": ""
+        }
+      ],
+      "genres": [
+        "Science-fiction",
+        "Aventure"
+      ],
+      "year": 2021,
+      "supports": [
+        {
+          "type": "dvd",
+          "location": "Étagère B5"
+        },
+        {
+          "type": "bluray",
+          "location": "Étagère B5"
+        },
+        {
+          "type": "digital",
+          "location": "/films/dune.mkv"
+        }
+      ]
+    },
+    {
+      "title": "Anatomie d'une chute",
+      "description": "Une écrivaine est soupçonnée d'avoir causé la mort de son mari, tombé du chalet familial.",
+      "director": {
+        "last_name": "Triet",
+        "first_name": "Justine"
+      },
+      "actors": [
+        {
+          "last_name": "Hüller",
+          "first_name": "Sandra"
+        },
+        {
+          "last_name": "Arlaud",
+          "first_name": "Swann"
+        }
+      ],
+      "genres": [
+        "Drame",
+        "Thriller"
+      ],
+      "year": 2023,
+      "supports": [
+        {
+          "type": "dvd",
+          "location": "Étagère C6"
+        }
+      ]
+    },
+    {
+      "title": "Portrait de la jeune fille en feu",
+      "description": "Au XVIIIe siècle, une peintre doit réaliser en secret le portrait d'une jeune femme.",
+      "director": {
+        "last_name": "Sciamma",
+        "first_name": "Céline"
+      },
+      "actors": [
+        {
+          "last_name": "Merlant",
+          "first_name": "Noémie"
+        },
+        {
+          "last_name": "Haenel",
+          "first_name": "Adèle"
+        }
+      ],
+      "genres": [
+        "Drame",
+        "Romance"
+      ],
+      "year": 2019,
+      "supports": [
+        {
+          "type": "bluray",
+          "location": "Étagère D7"
+        }
+      ]
+    },
+    {
+      "title": "Les Quatre Cents Coups",
+      "description": "Un adolescent parisien livré à lui-même enchaîne les fugues et les bêtises.",
+      "director": {
+        "last_name": "Truffaut",
+        "first_name": "François"
+      },
+      "actors": [
+        {
+          "last_name": "Léaud",
+          "first_name": "Jean-Pierre"
+        }
+      ],
+      "genres": [
+        "Drame"
+      ],
+      "year": 1959,
+      "supports": [
+        {
+          "type": "digital",
+          "location": "/films/les_quatre_cents_coups.mkv"
+        }
+      ]
+    },
+    {
+      "title": "À bout de souffle",
+      "description": "Un petit voyou en cavale tente de convaincre une jeune Américaine de fuir avec lui.",
+      "director": {
+        "last_name": "Godard",
+        "first_name": "Jean-Luc"
+      },
+      "actors": [
+        {
+          "last_name": "Belmondo",
+          "first_name": "Jean-Paul"
+        },
+        {
+          "last_name": "Seberg",
+          "first_name": "Jean"
+        }
+      ],
+      "genres": [
+        "Drame",
+        "Policier"
+      ],
+      "year": 1960,
+      "supports": [
+        {
+          "type": "bluray",
+          "location": "Étagère F9"
+        },
+        {
+          "type": "digital",
+          "location": "/films/a_bout_de_souffle.mkv"
+        }
+      ]
+    },
+    {
+      "title": "Amadeus",
+      "description": "Le compositeur Salieri raconte sa rivalité jalouse avec le jeune Mozart.",
+      "director": {
+        "last_name": "Forman",
+        "first_name": "Miloš"
+      },
+      "actors": [
+        {
+          "last_name": "Abraham",
+          "first_name": "F. Murray"
+        },
+        {
+          "last_name": "Hulce",
+          "first_name": "Tom"
+        }
+      ],
+      "genres": [
+        "Drame",
+        "Biographie"
+      ],
+      "year": 1984,
+      "supports": [
+        {
+          "type": "dvd",
+          "location": "Étagère A1"
+        },
+        {
+          "type": "digital",
+          "location": "/films/amadeus.mkv"
+        }
+      ]
+    },
+    {
+      "title": "Le Prénom",
+      "description": "Un dîner entre amis tourne au règlement de comptes à cause du prénom d'un futur bébé.",
+      "director": {
+        "last_name": "de La Patellière",
+        "first_name": "Alexandre"
+      },
+      "actors": [
+        {
+          "last_name": "Bruel",
+          "first_name": "Patrick"
+        },
+        {
+          "last_name": "Benguigui",
+          "first_name": "Valérie"
+        },
+        {
+          "last_name": "Berling",
+          "first_name": "Charles"
+        }
+      ],
+      "genres": [
+        "Comédie"
+      ],
+      "year": 2012,
+      "supports": [
+        {
+          "type": "dvd",
+          "location": "Étagère B2"
+        },
+        {
+          "type": "bluray",
+          "location": "Étagère B2"
+        }
+      ]
     }
   ],
   "users": [
