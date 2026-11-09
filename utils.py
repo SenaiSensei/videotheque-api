@@ -30,22 +30,23 @@ def invalid(message):
 def register_error_handlers(app):
     @app.errorhandler(ApiError)
     def handle_api_error(err):
-        return jsonify({"code": err.code, "message": err.message}), err.status
+        return jsonify({"status": err.status, "code": err.code, "message": err.message}), err.status
 
     @app.errorhandler(HTTPException)
     def handle_http_error(err):
         codes = {404: "not_found", 405: "method_not_allowed"}
-        return jsonify({"code": codes.get(err.code, "http_error"), "message": err.description}), err.code
+        return jsonify({"status": err.code, "code": codes.get(err.code, "http_error"),
+                        "message": err.description}), err.code
 
     @app.errorhandler(PyMongoError)
     def handle_mongo_error(err):
         app.logger.exception(err)
-        return jsonify({"code": "internal_error", "message": "Base de données indisponible"}), 500
+        return jsonify("status": 500, {"code": "internal_error", "message": "Base de données indisponible"}), 500
 
     @app.errorhandler(Exception)
     def handle_unexpected_error(err):
         app.logger.exception(err)
-        return jsonify({"code": "internal_error", "message": "Erreur interne"}), 500
+        return jsonify({"status": 500, "code": "internal_error", "message": "Erreur interne"}), 500
 
 
 # Identifiants
@@ -59,7 +60,8 @@ def to_object_id(value, not_found_code=None):
     if isinstance(value, str) and OBJECT_ID_RE.match(value):
         return ObjectId(value)
     if not_found_code:
-        raise ApiError(404, not_found_code, "Ressource introuvable")
+        messages = {"film_not_found": "Film introuvable", "user_not_found": "Compte introuvable"}
+        raise ApiError(404, not_found_code, messages.get(not_found_code, "Ressource introuvable"))
     raise invalid("Identifiant invalide")
 
 
