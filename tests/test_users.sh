@@ -16,7 +16,7 @@ check "corps non JSON" 400 POST /login "" "pas du json"
 
 section "Inscription"
 create_user U
-PASS=$((PASS + 1)); printf '  OK    %-50s %s\n' "inscription valide" 201
+ok "inscription valide" 201
 check "connexion du nouveau compte" 200 POST /login "" "{\"email\":\"$U_EMAIL\",\"password\":\"$U_PASSWORD\"}"
 expect "rôles par défaut" "$(json '["user"]["roles"]')" "['user']"
 check "email déjà utilisé" 409 POST /users "" "{\"email\":\"$U_EMAIL\",\"username\":\"autre$RANDOM\",\"password\":\"testpass123\"}"

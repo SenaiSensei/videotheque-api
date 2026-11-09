@@ -13,6 +13,14 @@ BODY=$(mktemp)
 CREATED_USERS=()
 CREATED_FILMS=()
 FAKE_ID=ffffffffffffffffffffffff
+DETAIL=0
+[ "$1" = "detail" ] && DETAIL=1
+
+# ok NOM VALEUR : compte un succès et l'affiche en mode detail
+ok() {
+  PASS=$((PASS + 1))
+  if [ "$DETAIL" = 1 ]; then printf '  OK    %-50s %s\n' "$1" "$2"; fi
+}
 
 # Supprime les comptes et films de test, même si un test échoue
 cleanup() {
@@ -22,7 +30,9 @@ cleanup() {
 }
 trap cleanup EXIT
 
-section() { echo; echo "== $1"; }
+section() {
+  if [ "$DETAIL" = 1 ]; then echo; echo "== $1"; fi
+}
 
 # call METHODE CHEMIN JETON [JSON] : enregistre le corps dans $BODY et affiche le code HTTP
 call() {
@@ -38,7 +48,7 @@ check() {
   local name=$1 expected=$2; shift 2
   local code; code=$(call "$@")
   if [ "$code" = "$expected" ]; then
-    PASS=$((PASS + 1)); printf '  OK    %-50s %s\n' "$name" "$code"
+    ok "$name" "$code"
   else
     FAIL=$((FAIL + 1)); printf '  ECHEC %-50s %s (attendu %s)\n' "$name" "$code" "$expected"
     printf '        %s\n' "$(tr -d '\n' < "$BODY")"
@@ -48,7 +58,7 @@ check() {
 # expect NOM VALEUR_OBTENUE VALEUR_ATTENDUE : vérifie un contenu de réponse
 expect() {
   if [ "$2" = "$3" ]; then
-    PASS=$((PASS + 1)); printf '  OK    %-50s %s\n' "$1" "$2"
+    ok "$1" "$2"
   else
     FAIL=$((FAIL + 1)); printf '  ECHEC %-50s %s (attendu %s)\n' "$1" "$2" "$3"
   fi

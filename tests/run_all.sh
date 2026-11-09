@@ -8,9 +8,11 @@ fi
 
 FAILED=()
 for script in test_auth.sh test_users.sh test_films.sh test_favorites.sh; do
-  echo
-  echo "################ $script"
-  bash "$DIR/$script" || FAILED+=("$script")
+  if [ "$1" = "detail" ]; then
+    echo
+    echo "################ $script"
+  fi
+  bash "$DIR/$script" "$1" || FAILED+=("$script")
 done
 
 echo
