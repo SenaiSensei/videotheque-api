@@ -3,7 +3,7 @@
   "info": {
     "title": "API Vidéothèque",
     "version": "1.0.0",
-    "description": "API REST du tiers d'accès aux données (TP RT0705).\n\n**Utilisation** : appelez `POST /login`, copiez le `token` de la réponse, puis cliquez sur **Authorize** et collez-le (sans le préfixe Bearer). Toutes les routes, sauf `POST /login`, `POST /users` et `/health`, demandent ce jeton.\n\nLes identifiants sont des ObjectId MongoDB au format texte (24 caractères hexadécimaux). Toutes les erreurs sont renvoyées au format `Error`."
+    "description": "API REST du tiers d'accès aux données (TP RT0705).\n\n**Utilisation** : appelez `POST /login`, copiez le `token` de la réponse, puis cliquez sur **Authorize** et collez-le (sans le préfixe Bearer). Toutes les routes, sauf `POST /login` et `POST /users`, demandent ce jeton.\n\nLes identifiants sont des ObjectId MongoDB au format texte (24 caractères hexadécimaux). Toutes les erreurs sont renvoyées au format `Error`."
   },
   "servers": [
     {
@@ -23,10 +23,6 @@
     {
       "name": "Favoris",
       "description": "Films favoris d'un compte"
-    },
-    {
-      "name": "Technique",
-      "description": "État du service"
     }
   ],
   "paths": {
@@ -1169,54 +1165,6 @@
           },
           "404": {
             "description": "Compte introuvable ou id de film mal formé (user_not_found, film_not_found)",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/Error"
-                }
-              }
-            }
-          }
-        }
-      }
-    },
-    "/health": {
-      "get": {
-        "tags": [
-          "Technique"
-        ],
-        "summary": "État de l'API et de MongoDB",
-        "operationId": "health",
-        "security": [],
-        "responses": {
-          "200": {
-            "description": "Service disponible",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "type": "object",
-                  "properties": {
-                    "status": {
-                      "type": "string",
-                      "example": "ok"
-                    },
-                    "collections": {
-                      "type": "array",
-                      "items": {
-                        "type": "string"
-                      },
-                      "example": [
-                        "films",
-                        "users"
-                      ]
-                    }
-                  }
-                }
-              }
-            }
-          },
-          "500": {
-            "description": "MongoDB indisponible (internal_error)",
             "content": {
               "application/json": {
                 "schema": {
