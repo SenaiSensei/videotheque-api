@@ -1,0 +1,1597 @@
+{
+  "openapi": "3.0.3",
+  "info": {
+    "title": "API Vidéothèque",
+    "version": "1.0.0",
+    "description": "API REST du tiers d'accès aux données (TP RT0705).\n\n**Utilisation** : appelez `POST /login`, copiez le `token` de la réponse, puis cliquez sur **Authorize** et collez-le (sans le préfixe Bearer). Toutes les routes, sauf `POST /login`, `POST /users` et `/health`, demandent ce jeton.\n\nLes identifiants sont des ObjectId MongoDB au format texte (24 caractères hexadécimaux). Toutes les erreurs sont renvoyées au format `Error`."
+  },
+  "servers": [
+    {
+      "url": "/",
+      "description": "Cette API"
+    }
+  ],
+  "tags": [
+    {
+      "name": "Films",
+      "description": "Catalogue commun et recherche"
+    },
+    {
+      "name": "Comptes",
+      "description": "Connexion, inscription, profil et rôles"
+    },
+    {
+      "name": "Favoris",
+      "description": "Films favoris d'un compte"
+    },
+    {
+      "name": "Technique",
+      "description": "État du service"
+    }
+  ],
+  "paths": {
+    "/films": {
+      "get": {
+        "tags": [
+          "Films"
+        ],
+        "summary": "Liste du catalogue et recherche",
+        "operationId": "listFilms",
+        "description": "Sans filtre, renvoie tout le catalogue trié par titre. Les filtres renseignés se cumulent.",
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ],
+        "parameters": [
+          {
+            "name": "title",
+            "in": "query",
+            "description": "Recherche partielle, insensible à la casse",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "director",
+            "in": "query",
+            "description": "Nom ou prénom du réalisateur, recherche partielle",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "actor",
+            "in": "query",
+            "description": "Nom ou prénom d'un acteur, recherche partielle",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "genre",
+            "in": "query",
+            "description": "Genre exact, insensible à la casse",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "year",
+            "in": "query",
+            "description": "Année exacte",
+            "schema": {
+              "type": "integer"
+            }
+          },
+          {
+            "name": "support",
+            "in": "query",
+            "description": "Type de support",
+            "schema": {
+              "type": "string",
+              "enum": [
+                "dvd",
+                "bluray",
+                "digital"
+              ]
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Films trouvés (liste éventuellement vide)",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/FilmList"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Données invalides ou incomplètes (invalid_data)",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Jeton absent, invalide ou expiré, ou compte supprimé (invalid_token)",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          }
+        }
+      },
+      "post": {
+        "tags": [
+          "Films"
+        ],
+        "summary": "Ajout d'un film",
+        "operationId": "createFilm",
+        "description": "Réservé aux administrateurs. L'_id est généré par MongoDB.",
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/FilmInput"
+              },
+              "example": {
+                "title": "Pulp Fiction",
+                "description": "Plusieurs histoires criminelles se croisent à Los Angeles.",
+                "director": {
+                  "last_name": "Tarantino",
+                  "first_name": "Quentin"
+                },
+                "actors": [
+                  {
+                    "last_name": "Travolta",
+                    "first_name": "John"
+                  },
+                  {
+                    "last_name": "Thurman",
+                    "first_name": "Uma"
+                  }
+                ],
+                "genres": [
+                  "Policier",
+                  "Drame"
+                ],
+                "year": 1994,
+                "supports": [
+                  {
+                    "type": "bluray",
+                    "location": "Étagère A3"
+                  },
+                  {
+                    "type": "digital",
+                    "location": "/films/pulp_fiction.mkv"
+                  }
+                ]
+              }
+            }
+          }
+        },
+        "responses": {
+          "201": {
+            "description": "Film créé",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Film"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Données invalides ou incomplètes (invalid_data)",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Jeton absent, invalide ou expiré, ou compte supprimé (invalid_token)",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          },
+          "403": {
+            "description": "Droits insuffisants (forbidden)",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/films/{film_id}": {
+      "parameters": [
+        {
+          "name": "film_id",
+          "in": "path",
+          "required": true,
+          "description": "Identifiant du film",
+          "schema": {
+            "type": "string",
+            "pattern": "^[0-9a-f]{24}$",
+            "example": "665f1c2ab3d4e5f6a7b8c9d0"
+          }
+        }
+      ],
+      "get": {
+        "tags": [
+          "Films"
+        ],
+        "summary": "Fiche d'un film",
+        "operationId": "getFilm",
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Film",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Film"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Jeton absent, invalide ou expiré, ou compte supprimé (invalid_token)",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Film introuvable (film_not_found)",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          }
+        }
+      },
+      "put": {
+        "tags": [
+          "Films"
+        ],
+        "summary": "Modification d'un film",
+        "operationId": "updateFilm",
+        "description": "Réservé aux administrateurs. Remplace toutes les données du film, sans changer son _id.",
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/FilmInput"
+              },
+              "example": {
+                "title": "Pulp Fiction",
+                "description": "Plusieurs histoires criminelles se croisent à Los Angeles.",
+                "director": {
+                  "last_name": "Tarantino",
+                  "first_name": "Quentin"
+                },
+                "actors": [
+                  {
+                    "last_name": "Travolta",
+                    "first_name": "John"
+                  },
+                  {
+                    "last_name": "Thurman",
+                    "first_name": "Uma"
+                  }
+                ],
+                "genres": [
+                  "Policier",
+                  "Drame"
+                ],
+                "year": 1994,
+                "supports": [
+                  {
+                    "type": "bluray",
+                    "location": "Étagère A3"
+                  },
+                  {
+                    "type": "digital",
+                    "location": "/films/pulp_fiction.mkv"
+                  }
+                ]
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Film modifié",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Film"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Données invalides ou incomplètes (invalid_data)",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Jeton absent, invalide ou expiré, ou compte supprimé (invalid_token)",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          },
+          "403": {
+            "description": "Droits insuffisants (forbidden)",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Film introuvable (film_not_found)",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          }
+        }
+      },
+      "delete": {
+        "tags": [
+          "Films"
+        ],
+        "summary": "Suppression d'un film",
+        "operationId": "deleteFilm",
+        "description": "Réservé aux administrateurs. Retire aussi le film des favoris de tous les utilisateurs.",
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Film supprimé",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Message"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Jeton absent, invalide ou expiré, ou compte supprimé (invalid_token)",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          },
+          "403": {
+            "description": "Droits insuffisants (forbidden)",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Film introuvable (film_not_found)",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/login": {
+      "post": {
+        "tags": [
+          "Comptes"
+        ],
+        "summary": "Connexion",
+        "operationId": "login",
+        "description": "Route publique. Renvoie un jeton JWT valable une heure.",
+        "security": [],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/LoginRequest"
+              },
+              "example": {
+                "email": "admin@example.org",
+                "password": "mot de passe"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Connexion réussie",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Authentication"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Données invalides ou incomplètes (invalid_data)",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Identifiants incorrects (invalid_credentials)",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/users": {
+      "get": {
+        "tags": [
+          "Comptes"
+        ],
+        "summary": "Liste des comptes",
+        "operationId": "listUsers",
+        "description": "Réservé aux administrateurs. Comptes triés par nom d'utilisateur.",
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Comptes",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/UserList"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Jeton absent, invalide ou expiré, ou compte supprimé (invalid_token)",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          },
+          "403": {
+            "description": "Droits insuffisants (forbidden)",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          }
+        }
+      },
+      "post": {
+        "tags": [
+          "Comptes"
+        ],
+        "summary": "Inscription",
+        "operationId": "register",
+        "description": "Route publique. Crée un compte avec le rôle user et renvoie un jeton.",
+        "security": [],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/RegisterRequest"
+              },
+              "example": {
+                "email": "alice@example.org",
+                "username": "alice",
+                "password": "motdepasse1"
+              }
+            }
+          }
+        },
+        "responses": {
+          "201": {
+            "description": "Compte créé",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Authentication"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Données invalides ou incomplètes (invalid_data)",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          },
+          "409": {
+            "description": "Email ou nom d'utilisateur déjà utilisé (email_taken, username_taken)",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/users/{user_id}": {
+      "parameters": [
+        {
+          "name": "user_id",
+          "in": "path",
+          "required": true,
+          "description": "Identifiant du compte",
+          "schema": {
+            "type": "string",
+            "pattern": "^[0-9a-f]{24}$",
+            "example": "665f1c2ab3d4e5f6a7b8c9d0"
+          }
+        }
+      ],
+      "get": {
+        "tags": [
+          "Comptes"
+        ],
+        "summary": "Consultation d'un compte",
+        "operationId": "getUser",
+        "description": "Propriétaire du compte ou administrateur.",
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Compte",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/UserPublic"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Jeton absent, invalide ou expiré, ou compte supprimé (invalid_token)",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          },
+          "403": {
+            "description": "Droits insuffisants (forbidden)",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Compte introuvable (user_not_found)",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          }
+        }
+      },
+      "put": {
+        "tags": [
+          "Comptes"
+        ],
+        "summary": "Modification du profil",
+        "operationId": "updateUser",
+        "description": "Propriétaire du compte uniquement. L'email ne peut pas être modifié. Pour changer de mot de passe, envoyer current_password et new_password.",
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/ProfileUpdateRequest"
+              },
+              "example": {
+                "username": "alice"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Compte modifié",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/UserPublic"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Données invalides ou incomplètes (invalid_data)",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Jeton invalide (invalid_token) ou mot de passe actuel incorrect (invalid_password)",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          },
+          "403": {
+            "description": "Droits insuffisants (forbidden)",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Compte introuvable (user_not_found)",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          },
+          "409": {
+            "description": "Nom d'utilisateur déjà utilisé (username_taken)",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          }
+        }
+      },
+      "delete": {
+        "tags": [
+          "Comptes"
+        ],
+        "summary": "Suppression d'un compte",
+        "operationId": "deleteUser",
+        "description": "Son propre compte, ou n'importe quel compte pour un administrateur. Le dernier administrateur ne peut pas être supprimé.",
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Compte supprimé",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Message"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Jeton absent, invalide ou expiré, ou compte supprimé (invalid_token)",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          },
+          "403": {
+            "description": "Droits insuffisants (forbidden)",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Compte introuvable (user_not_found)",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          },
+          "409": {
+            "description": "Opération impossible sur le dernier administrateur (last_admin)",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/users/{user_id}/roles": {
+      "parameters": [
+        {
+          "name": "user_id",
+          "in": "path",
+          "required": true,
+          "description": "Identifiant du compte",
+          "schema": {
+            "type": "string",
+            "pattern": "^[0-9a-f]{24}$",
+            "example": "665f1c2ab3d4e5f6a7b8c9d0"
+          }
+        }
+      ],
+      "put": {
+        "tags": [
+          "Comptes"
+        ],
+        "summary": "Changement des rôles",
+        "operationId": "updateRoles",
+        "description": "Réservé aux administrateurs. roles doit contenir \"user\". Le rôle admin ne peut pas être retiré au dernier administrateur.",
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/RolesRequest"
+              },
+              "example": {
+                "roles": [
+                  "user",
+                  "admin"
+                ]
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Compte modifié",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/UserPublic"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Données invalides ou incomplètes (invalid_data)",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Jeton absent, invalide ou expiré, ou compte supprimé (invalid_token)",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          },
+          "403": {
+            "description": "Droits insuffisants (forbidden)",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Compte introuvable (user_not_found)",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          },
+          "409": {
+            "description": "Opération impossible sur le dernier administrateur (last_admin)",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/users/{user_id}/favorites": {
+      "parameters": [
+        {
+          "name": "user_id",
+          "in": "path",
+          "required": true,
+          "description": "Identifiant du compte",
+          "schema": {
+            "type": "string",
+            "pattern": "^[0-9a-f]{24}$",
+            "example": "665f1c2ab3d4e5f6a7b8c9d0"
+          }
+        }
+      ],
+      "get": {
+        "tags": [
+          "Favoris"
+        ],
+        "summary": "Consultation des favoris",
+        "operationId": "listFavorites",
+        "description": "Propriétaire du compte uniquement. Films dans l'ordre d'ajout.",
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Films favoris",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/FilmList"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Jeton absent, invalide ou expiré, ou compte supprimé (invalid_token)",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          },
+          "403": {
+            "description": "Droits insuffisants (forbidden)",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Compte introuvable (user_not_found)",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          }
+        }
+      },
+      "post": {
+        "tags": [
+          "Favoris"
+        ],
+        "summary": "Ajout d'un favori",
+        "operationId": "addFavorite",
+        "description": "Propriétaire du compte uniquement. Un film déjà en favori n'est pas ajouté deux fois.",
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/FavoriteRequest"
+              },
+              "example": {
+                "film_id": "665f1c2ab3d4e5f6a7b8c9d0"
+              }
+            }
+          }
+        },
+        "responses": {
+          "201": {
+            "description": "Favori ajouté",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/FavoriteList"
+                }
+              }
+            }
+          },
+          "200": {
+            "description": "Film déjà en favori",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/FavoriteList"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Données invalides ou incomplètes (invalid_data)",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Jeton absent, invalide ou expiré, ou compte supprimé (invalid_token)",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          },
+          "403": {
+            "description": "Droits insuffisants (forbidden)",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Compte ou film introuvable (user_not_found, film_not_found)",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/users/{user_id}/favorites/{film_id}": {
+      "parameters": [
+        {
+          "name": "user_id",
+          "in": "path",
+          "required": true,
+          "description": "Identifiant du compte",
+          "schema": {
+            "type": "string",
+            "pattern": "^[0-9a-f]{24}$",
+            "example": "665f1c2ab3d4e5f6a7b8c9d0"
+          }
+        },
+        {
+          "name": "film_id",
+          "in": "path",
+          "required": true,
+          "description": "Identifiant du film",
+          "schema": {
+            "type": "string",
+            "pattern": "^[0-9a-f]{24}$",
+            "example": "665f1c2ab3d4e5f6a7b8c9d0"
+          }
+        }
+      ],
+      "delete": {
+        "tags": [
+          "Favoris"
+        ],
+        "summary": "Retrait d'un favori",
+        "operationId": "removeFavorite",
+        "description": "Propriétaire du compte uniquement. Sans effet si le film n'est pas en favori.",
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Favoris à jour",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/FavoriteList"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Jeton absent, invalide ou expiré, ou compte supprimé (invalid_token)",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          },
+          "403": {
+            "description": "Droits insuffisants (forbidden)",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Compte introuvable ou id de film mal formé (user_not_found, film_not_found)",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/health": {
+      "get": {
+        "tags": [
+          "Technique"
+        ],
+        "summary": "État de l'API et de MongoDB",
+        "operationId": "health",
+        "security": [],
+        "responses": {
+          "200": {
+            "description": "Service disponible",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "status": {
+                      "type": "string",
+                      "example": "ok"
+                    },
+                    "collections": {
+                      "type": "array",
+                      "items": {
+                        "type": "string"
+                      },
+                      "example": [
+                        "films",
+                        "users"
+                      ]
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "MongoDB indisponible (internal_error)",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  },
+  "components": {
+    "securitySchemes": {
+      "bearerAuth": {
+        "type": "http",
+        "scheme": "bearer",
+        "bearerFormat": "JWT",
+        "description": "Jeton obtenu avec POST /login ou POST /users"
+      }
+    },
+    "schemas": {
+      "Person": {
+        "type": "object",
+        "required": [
+          "last_name"
+        ],
+        "properties": {
+          "last_name": {
+            "type": "string",
+            "maxLength": 100,
+            "example": "Tarantino"
+          },
+          "first_name": {
+            "type": "string",
+            "maxLength": 100,
+            "example": "Quentin",
+            "description": "Facultatif, vide par défaut"
+          }
+        }
+      },
+      "Support": {
+        "type": "object",
+        "required": [
+          "type",
+          "location"
+        ],
+        "properties": {
+          "type": {
+            "type": "string",
+            "enum": [
+              "dvd",
+              "bluray",
+              "digital"
+            ]
+          },
+          "location": {
+            "type": "string",
+            "maxLength": 500,
+            "description": "Étagère ou chemin du fichier",
+            "example": "Étagère A3"
+          }
+        }
+      },
+      "FilmInput": {
+        "type": "object",
+        "required": [
+          "title",
+          "director",
+          "year"
+        ],
+        "properties": {
+          "title": {
+            "type": "string",
+            "maxLength": 200
+          },
+          "description": {
+            "type": "string",
+            "maxLength": 2000
+          },
+          "director": {
+            "$ref": "#/components/schemas/Person"
+          },
+          "actors": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/Person"
+            }
+          },
+          "genres": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            },
+            "description": "Doublons retirés"
+          },
+          "year": {
+            "type": "integer",
+            "minimum": 1888,
+            "maximum": 2100
+          },
+          "supports": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/Support"
+            }
+          }
+        }
+      },
+      "Film": {
+        "allOf": [
+          {
+            "type": "object",
+            "required": [
+              "_id"
+            ],
+            "properties": {
+              "_id": {
+                "type": "string",
+                "pattern": "^[0-9a-f]{24}$",
+                "example": "665f1c2ab3d4e5f6a7b8c9d0"
+              }
+            }
+          },
+          {
+            "$ref": "#/components/schemas/FilmInput"
+          }
+        ],
+        "example": {
+          "_id": "665f1c2ab3d4e5f6a7b8c9d0",
+          "title": "Pulp Fiction",
+          "description": "Plusieurs histoires criminelles se croisent à Los Angeles.",
+          "director": {
+            "last_name": "Tarantino",
+            "first_name": "Quentin"
+          },
+          "actors": [
+            {
+              "last_name": "Travolta",
+              "first_name": "John"
+            },
+            {
+              "last_name": "Thurman",
+              "first_name": "Uma"
+            }
+          ],
+          "genres": [
+            "Policier",
+            "Drame"
+          ],
+          "year": 1994,
+          "supports": [
+            {
+              "type": "bluray",
+              "location": "Étagère A3"
+            },
+            {
+              "type": "digital",
+              "location": "/films/pulp_fiction.mkv"
+            }
+          ]
+        }
+      },
+      "FilmList": {
+        "type": "object",
+        "properties": {
+          "films": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/Film"
+            }
+          }
+        }
+      },
+      "UserPublic": {
+        "type": "object",
+        "properties": {
+          "_id": {
+            "type": "string",
+            "pattern": "^[0-9a-f]{24}$",
+            "example": "665f1c2ab3d4e5f6a7b8c9d0"
+          },
+          "email": {
+            "type": "string",
+            "format": "email",
+            "example": "admin@example.org"
+          },
+          "username": {
+            "type": "string",
+            "example": "admin"
+          },
+          "roles": {
+            "type": "array",
+            "items": {
+              "type": "string",
+              "enum": [
+                "user",
+                "admin"
+              ]
+            },
+            "example": [
+              "user",
+              "admin"
+            ]
+          },
+          "favorites": {
+            "type": "array",
+            "items": {
+              "type": "string",
+              "pattern": "^[0-9a-f]{24}$",
+              "example": "665f1c2ab3d4e5f6a7b8c9d0"
+            }
+          }
+        }
+      },
+      "UserList": {
+        "type": "object",
+        "properties": {
+          "users": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/UserPublic"
+            }
+          }
+        }
+      },
+      "Authentication": {
+        "type": "object",
+        "properties": {
+          "token": {
+            "type": "string",
+            "description": "Jeton JWT, valable une heure"
+          },
+          "user": {
+            "$ref": "#/components/schemas/UserPublic"
+          }
+        }
+      },
+      "LoginRequest": {
+        "type": "object",
+        "required": [
+          "email",
+          "password"
+        ],
+        "properties": {
+          "email": {
+            "type": "string",
+            "format": "email"
+          },
+          "password": {
+            "type": "string",
+            "format": "password"
+          }
+        }
+      },
+      "RegisterRequest": {
+        "type": "object",
+        "required": [
+          "email",
+          "username",
+          "password"
+        ],
+        "properties": {
+          "email": {
+            "type": "string",
+            "format": "email",
+            "maxLength": 254
+          },
+          "username": {
+            "type": "string",
+            "minLength": 3,
+            "maxLength": 30
+          },
+          "password": {
+            "type": "string",
+            "format": "password",
+            "minLength": 8,
+            "maxLength": 128
+          }
+        }
+      },
+      "ProfileUpdateRequest": {
+        "type": "object",
+        "required": [
+          "username"
+        ],
+        "properties": {
+          "username": {
+            "type": "string",
+            "minLength": 3,
+            "maxLength": 30
+          },
+          "current_password": {
+            "type": "string",
+            "format": "password",
+            "description": "Obligatoire pour changer de mot de passe"
+          },
+          "new_password": {
+            "type": "string",
+            "format": "password",
+            "minLength": 8,
+            "maxLength": 128
+          }
+        }
+      },
+      "RolesRequest": {
+        "type": "object",
+        "required": [
+          "roles"
+        ],
+        "properties": {
+          "roles": {
+            "type": "array",
+            "items": {
+              "type": "string",
+              "enum": [
+                "user",
+                "admin"
+              ]
+            }
+          }
+        }
+      },
+      "FavoriteRequest": {
+        "type": "object",
+        "required": [
+          "film_id"
+        ],
+        "properties": {
+          "film_id": {
+            "type": "string",
+            "pattern": "^[0-9a-f]{24}$",
+            "example": "665f1c2ab3d4e5f6a7b8c9d0"
+          }
+        }
+      },
+      "FavoriteList": {
+        "type": "object",
+        "properties": {
+          "favorites": {
+            "type": "array",
+            "items": {
+              "type": "string",
+              "pattern": "^[0-9a-f]{24}$",
+              "example": "665f1c2ab3d4e5f6a7b8c9d0"
+            }
+          }
+        }
+      },
+      "Message": {
+        "type": "object",
+        "properties": {
+          "message": {
+            "type": "string",
+            "example": "Film supprimé"
+          }
+        }
+      },
+      "Error": {
+        "type": "object",
+        "properties": {
+          "status": {
+            "type": "integer",
+            "example": 409
+          },
+          "code": {
+            "type": "string",
+            "example": "email_taken"
+          },
+          "message": {
+            "type": "string",
+            "example": "Email déjà utilisé"
+          }
+        }
+      }
+    }
+  }
+}
