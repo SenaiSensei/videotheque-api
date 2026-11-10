@@ -32,14 +32,14 @@ services:
         condition: service_healthy
     networks:
       - data-net
-      - presentation-net
+      - api-net
     ports:
-      - "127.0.0.1:5001:5000"   # tests depuis la VM, à retirer à la fin
+      - "5000:5000"
 
 volumes:
   mongo-data:
 
 networks:
   data-net:
-  presentation-net:
-    name: rt0705-presentation-net
+    internal: true
+  api-net: {}
