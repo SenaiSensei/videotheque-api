@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
 # Fonctions communes aux scripts de test de l'API.
 
-API=${API:-http://127.0.0.1:5001}
+API=${API:-http://127.0.0.1:5000}
 ADMIN_EMAIL=${ADMIN_EMAIL:-admin@example.org}
 if [ -z "$ADMIN_PASSWORD" ]; then
   read -rsp "Mot de passe admin : " ADMIN_PASSWORD; echo
