@@ -6,6 +6,7 @@ from werkzeug.security import check_password_hash, generate_password_hash
 from auth import (admin_required, create_token, owner_or_admin_required,
                   owner_required)
 from db import users, write_lock
+from ratelimit import login_limiter
 from utils import (ApiError, get_json_body, public_user, to_object_id,
                    validate_email, validate_password, validate_roles,
                    validate_username)
@@ -48,10 +49,17 @@ def login():
     if not isinstance(password, str) or not password:
         raise ApiError(400, "invalid_data", "Le champ password est obligatoire")
 
+    wait = login_limiter.retry_after(email)
+    if wait:
+        raise ApiError(429, "too_many_attempts",
+                       f"Trop de tentatives de connexion. Réessayez dans {wait} secondes.")
+
     user = users.find_one({"email": email})
     password_ok = check_password_hash(user["password_hash"] if user else DUMMY_HASH, password)
     if not user or not password_ok:
+        login_limiter.record_failure(email)
         raise ApiError(401, "invalid_credentials", "Identifiants incorrects")
+    login_limiter.reset(email)
     return auth_response(user, 200)
 
 
