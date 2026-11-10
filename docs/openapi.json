@@ -92,6 +92,27 @@
                 "digital"
               ]
             }
+          },
+          {
+            "name": "page",
+            "in": "query",
+            "description": "Numéro de page (à partir de 1)",
+            "schema": {
+              "type": "integer",
+              "minimum": 1,
+              "default": 1
+            }
+          },
+          {
+            "name": "per_page",
+            "in": "query",
+            "description": "Éléments par page (max 100)",
+            "schema": {
+              "type": "integer",
+              "minimum": 1,
+              "maximum": 100,
+              "default": 24
+            }
           }
         ],
         "responses": {
@@ -100,7 +121,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/FilmList"
+                  "$ref": "#/components/schemas/FilmPage"
                 }
               }
             }
@@ -526,7 +547,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/UserList"
+                  "$ref": "#/components/schemas/UserPage"
                 }
               }
             }
@@ -551,7 +572,30 @@
               }
             }
           }
-        }
+        },
+        "parameters": [
+          {
+            "name": "page",
+            "in": "query",
+            "description": "Numéro de page (à partir de 1)",
+            "schema": {
+              "type": "integer",
+              "minimum": 1,
+              "default": 1
+            }
+          },
+          {
+            "name": "per_page",
+            "in": "query",
+            "description": "Comptes par page (max 100)",
+            "schema": {
+              "type": "integer",
+              "minimum": 1,
+              "maximum": 100,
+              "default": 20
+            }
+          }
+        ]
       },
       "post": {
         "tags": [
@@ -1177,6 +1221,104 @@
           }
         }
       }
+    },
+    "/films/genres": {
+      "get": {
+        "tags": [
+          "Films"
+        ],
+        "summary": "Liste des genres du catalogue",
+        "description": "Genres distincts présents dans le catalogue, sans doublon de casse. Pour remplir le filtre de recherche.",
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Genres",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "genres": {
+                      "type": "array",
+                      "items": {
+                        "type": "string"
+                      }
+                    }
+                  },
+                  "example": {
+                    "genres": [
+                      "Action",
+                      "Drame",
+                      "Policier",
+                      "Science-fiction"
+                    ]
+                  }
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Jeton absent, invalide ou expiré (invalid_token)",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/stats": {
+      "get": {
+        "tags": [
+          "Films"
+        ],
+        "summary": "Statistiques du catalogue (administrateur)",
+        "description": "Chiffres agrégés par MongoDB pour le tableau de bord, sans rapatrier tout le catalogue.",
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Statistiques",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Stats"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Jeton absent, invalide ou expiré (invalid_token)",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          },
+          "403": {
+            "description": "Droits insuffisants (forbidden)",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          }
+        }
+      }
     }
   },
   "components": {
@@ -1548,6 +1690,106 @@
             "type": "string",
             "example": "Email déjà utilisé"
           }
+        }
+      },
+      "FilmPage": {
+        "type": "object",
+        "properties": {
+          "films": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/Film"
+            }
+          },
+          "page": {
+            "type": "integer",
+            "example": 1
+          },
+          "per_page": {
+            "type": "integer",
+            "example": 24
+          },
+          "total": {
+            "type": "integer",
+            "example": 235
+          },
+          "pages": {
+            "type": "integer",
+            "example": 10
+          }
+        }
+      },
+      "UserPage": {
+        "type": "object",
+        "properties": {
+          "users": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/UserPublic"
+            }
+          },
+          "page": {
+            "type": "integer",
+            "example": 1
+          },
+          "per_page": {
+            "type": "integer",
+            "example": 20
+          },
+          "total": {
+            "type": "integer",
+            "example": 25
+          },
+          "pages": {
+            "type": "integer",
+            "example": 2
+          }
+        }
+      },
+      "Stats": {
+        "type": "object",
+        "properties": {
+          "films": {
+            "type": "integer"
+          },
+          "users": {
+            "type": "integer"
+          },
+          "admins": {
+            "type": "integer"
+          },
+          "favorites": {
+            "type": "integer",
+            "description": "Total des favoris de tous les comptes"
+          },
+          "supports": {
+            "type": "object",
+            "additionalProperties": {
+              "type": "integer"
+            },
+            "description": "Nombre de films par type de support",
+            "example": {
+              "dvd": 120,
+              "bluray": 90,
+              "digital": 60
+            }
+          },
+          "without_support": {
+            "type": "integer",
+            "description": "Films sans aucun support"
+          }
+        },
+        "example": {
+          "films": 235,
+          "users": 4,
+          "admins": 1,
+          "favorites": 12,
+          "supports": {
+            "dvd": 120,
+            "bluray": 90,
+            "digital": 60
+          },
+          "without_support": 5
         }
       }
     }

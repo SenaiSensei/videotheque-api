@@ -80,6 +80,22 @@ def public_user(user):
     """User public : sans password_hash, ObjectId convertis."""
     return serialize({k: v for k, v in user.items() if k != "password_hash"})
 
+# Pagination
+
+def pagination_args(args, default_per_page=24, max_per_page=100):
+    """Lit page et per_page de la requête, avec des bornes sûres."""
+    def positive(name, default):
+        value = args.get(name, "")
+        return int(value) if value.isdigit() and int(value) > 0 else default
+    per_page = min(positive("per_page", default_per_page), max_per_page)
+    return positive("page", 1), per_page
+
+
+def paginated(items, key, page, per_page, total):
+    """Réponse paginée : les éléments et les informations de page."""
+    pages = max(1, -(-total // per_page))  # arrondi au supérieur
+    return {key: items, "page": page, "per_page": per_page, "total": total, "pages": pages}
+
 
 # Lecture du corps JSON
 

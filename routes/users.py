@@ -7,9 +7,9 @@ from auth import (admin_required, create_token, owner_or_admin_required,
                   owner_required)
 from db import users, write_lock
 from ratelimit import login_limiter
-from utils import (ApiError, get_json_body, public_user, to_object_id,
-                   validate_email, validate_password, validate_roles,
-                   validate_username)
+from utils import (ApiError, get_json_body, paginated, pagination_args,
+                   public_user, to_object_id, validate_email, validate_password,
+                   validate_roles, validate_username)
 
 bp = Blueprint("users", __name__)
 
@@ -66,8 +66,11 @@ def login():
 @bp.get("/users")
 @admin_required
 def list_users():
-    found = users.find({}, {"password_hash": 0}).sort("username", ASCENDING)
-    return jsonify({"users": [public_user(u) for u in found]})
+    page, per_page = pagination_args(request.args, default_per_page=20)
+    total = users.count_documents({})
+    found = (users.find({}, {"password_hash": 0}).sort("username", ASCENDING)
+             .skip((page - 1) * per_page).limit(per_page))
+    return jsonify(paginated([public_user(u) for u in found], "users", page, per_page, total))
 
 
 @bp.post("/users")

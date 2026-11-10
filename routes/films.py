@@ -5,8 +5,8 @@ from pymongo import ASCENDING, ReturnDocument
 
 from auth import admin_required, login_required
 from db import films, users, write_lock
-from utils import (SUPPORT_TYPES, ApiError, get_json_body, invalid, serialize,
-                   to_object_id, validate_film)
+from utils import (SUPPORT_TYPES, ApiError, get_json_body, invalid, paginated,
+                   pagination_args, serialize, to_object_id, validate_film)
 
 bp = Blueprint("films", __name__)
 
@@ -63,8 +63,39 @@ def build_search_query(args):
 @bp.get("/films")
 @login_required
 def list_films():
-    found = films.find(build_search_query(request.args)).sort("title", ASCENDING)
-    return jsonify({"films": serialize(list(found))})
+    query = build_search_query(request.args)
+    page, per_page = pagination_args(request.args, default_per_page=24)
+    total = films.count_documents(query)
+    cursor = (films.find(query).sort("title", ASCENDING)
+              .skip((page - 1) * per_page).limit(per_page))
+    return jsonify(paginated(serialize(list(cursor)), "films", page, per_page, total))
+
+
+@bp.get("/films/genres")
+@login_required
+def list_genres():
+    """Liste des genres du catalogue, sans doublon de casse (pour le filtre)."""
+    seen = {}
+    for genre in films.distinct("genres"):
+        seen.setdefault(genre.casefold(), genre)
+    return jsonify({"genres": sorted(seen.values(), key=str.casefold)})
+
+
+@bp.get("/stats")
+@admin_required
+def stats():
+    """Chiffres du tableau de bord, calculés par MongoDB (sans tout rapatrier)."""
+    agg = list(users.aggregate([
+        {"$group": {"_id": None, "total": {"$sum": {"$size": "$favorites"}}}},
+    ]))
+    return jsonify({
+        "films": films.count_documents({}),
+        "users": users.count_documents({}),
+        "admins": users.count_documents({"roles": "admin"}),
+        "favorites": agg[0]["total"] if agg else 0,
+        "supports": {kind: films.count_documents({"supports.type": kind}) for kind in SUPPORT_TYPES},
+        "without_support": films.count_documents({"supports": {"$size": 0}}),
+    })
 
 
 @bp.post("/films")
