@@ -1,6 +1,6 @@
 #!/usr/bin/python3
 from flask import Flask, jsonify
-from db import db, init_db
+from db import init_db
 
 from routes.favorites import bp as favorites_bp
 from routes.films import bp as films_bp
