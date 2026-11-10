@@ -16,7 +16,9 @@ La vidéothèque est un catalogue de films commun à tous les utilisateurs. Chaq
 Cette API est le **seul accès aux données** :
 
 - **Stockage :** les films et les comptes sont des documents JSON, conservés dans MongoDB.
-- **Opérations :** l'API expose 15 routes, pour le CRUD des films et des comptes, la recherche, les favoris et la connexion.
+- **Opérations :** l'API expose 17 routes, pour le CRUD des films et des comptes, la recherche, les favoris et la connexion.
+- **Pagination :** `GET /films` et `GET /users` renvoient une page de résultats (`page`, `per_page`) avec le total et le nombre de pages, pour ne pas tout transférer d'un coup.
+- **Anti-force brute :** après 5 échecs de connexion sur un même email en 5 minutes, l'API renvoie `429` le temps que la fenêtre glisse.
 - **Authentification :** à la connexion, l'API émet un **jeton JWT** (HS256, valable une heure). Elle vérifie ce jeton et les droits (utilisateur, propriétaire du compte, administrateur) à chaque requête, même si le site les a déjà contrôlés.
 - **Mots de passe :** ils sont hachés avec `werkzeug.security`, et ne sont jamais stockés ni renvoyés en clair.
 - **Protection des administrateurs :** le dernier administrateur ne peut être ni supprimé, ni privé de son rôle.
@@ -36,10 +38,12 @@ Cette API est le **seul accès aux données** :
 | `PUT` | `/users/{id}/roles` | administrateur |
 | `GET`, `POST` | `/users/{id}/favorites` | propriétaire |
 | `DELETE` | `/users/{id}/favorites/{film_id}` | propriétaire |
-| `GET` | `/films` (liste et recherche) | connecté |
+| `GET` | `/films` (liste, recherche, paginée) | connecté |
 | `POST` | `/films` | administrateur |
+| `GET` | `/films/genres` | connecté |
 | `GET` | `/films/{id}` | connecté |
 | `PUT`, `DELETE` | `/films/{id}` | administrateur |
+| `GET` | `/stats` | administrateur |
 | `GET` | `/docs`, `/openapi.json` | public |
 
 Les erreurs sont toujours au format `{"status": 404, "code": "film_not_found", "message": "..."}`.
