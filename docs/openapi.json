@@ -177,7 +177,8 @@
                     "type": "digital",
                     "location": "/films/pulp_fiction.mkv"
                   }
-                ]
+                ],
+                "poster_url": "https://exemple.org/affiches/pulp_fiction.jpg"
               }
             }
           }
@@ -334,7 +335,8 @@
                     "type": "digital",
                     "location": "/films/pulp_fiction.mkv"
                   }
-                ]
+                ],
+                "poster_url": "https://exemple.org/affiches/pulp_fiction.jpg"
               }
             }
           }
@@ -1271,6 +1273,13 @@
             "items": {
               "$ref": "#/components/schemas/Support"
             }
+          },
+          "poster_url": {
+            "type": "string",
+            "format": "uri",
+            "maxLength": 500,
+            "description": "Facultatif. Adresse http:// ou https:// de l'affiche, vide par défaut",
+            "example": "https://exemple.org/affiches/pulp_fiction.jpg"
           }
         }
       },
@@ -1325,7 +1334,8 @@
               "type": "digital",
               "location": "/films/pulp_fiction.mkv"
             }
-          ]
+          ],
+          "poster_url": "https://exemple.org/affiches/pulp_fiction.jpg"
         }
       },
       "FilmList": {

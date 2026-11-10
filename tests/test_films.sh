@@ -30,6 +30,10 @@ check "acteur invalide" 400 POST /films "$TA" '{"title":"X","director":{"last_na
 check "support inconnu" 400 POST /films "$TA" '{"title":"X","director":{"last_name":"Y"},"year":1979,"supports":[{"type":"vhs","location":"A"}]}'
 check "support sans emplacement" 400 POST /films "$TA" '{"title":"X","director":{"last_name":"Y"},"year":1979,"supports":[{"type":"dvd"}]}'
 check "injection NoSQL dans le titre" 400 POST /films "$TA" '{"title":{"$ne":null},"director":{"last_name":"Y"},"year":1979}'
+check "affiche valide" 201 POST /films "$TA" '{"title":"Affiche","director":{"last_name":"Y"},"year":1979,"poster_url":"https://exemple.org/a.jpg"}'
+CREATED_FILMS+=("$(json '["_id"]')")
+check "affiche javascript:" 400 POST /films "$TA" '{"title":"X","director":{"last_name":"Y"},"year":1979,"poster_url":"javascript:alert(1)"}'
+check "affiche ftp:" 400 POST /films "$TA" '{"title":"X","director":{"last_name":"Y"},"year":1979,"poster_url":"ftp://exemple.org/a.jpg"}'
 
 section "CRUD"
 check "ajout par l'admin" 201 POST /films "$TA" "$FILM_JSON"

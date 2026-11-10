@@ -135,6 +135,8 @@ def validate_person(value, field):
 
 def validate_film(data):
     """Renvoie un Film propre, sans _id, ou lève invalid_data."""
+    URL_RE = re.compile(r"^https?://[^\s<>\"']+$")
+
     year = data.get("year")
     if not isinstance(year, int) or isinstance(year, bool) or not 1888 <= year <= 2100:
         raise invalid("year doit être un entier entre 1888 et 2100")
@@ -156,6 +158,10 @@ def validate_film(data):
         if not isinstance(support, dict) or support.get("type") not in SUPPORT_TYPES:
             raise invalid(f"Le type de support doit valoir {', '.join(SUPPORT_TYPES)}")
         clean_supports.append({"type": support["type"], "location": get_str(support, "location", max_len=500)})
+    
+    poster_url = get_str(data, "poster_url", required=False, max_len=500) or ""
+    if poster_url and not URL_RE.match(poster_url):
+        raise invalid("poster_url doit être une adresse http:// ou https://")
 
     return {
         "title": get_str(data, "title"),
@@ -165,6 +171,7 @@ def validate_film(data):
         "genres": genres,
         "year": year,
         "supports": clean_supports,
+        "poster_url": poster_url
     }
 
 
