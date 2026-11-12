@@ -31,7 +31,6 @@ import urllib.request
 
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 SEED_FILE = os.environ.get("SEED_FILE") or os.path.join(BASE_DIR, "data", "videotheque.json")
-# Wikimédia refuse (429) les clients sans moyen de contact dans le User-Agent
 CONTACT = os.environ.get("WIKI_CONTACT", "").strip()
 USER_AGENT = "RT0705-videotheque/1.0 (TP universitaire" + (f"; {CONTACT}" if CONTACT else "") + ") python-urllib"
 TIMEOUT = 10
@@ -216,7 +215,7 @@ def main():
         else:
             missing.append(film["title"])
             print(f"  -  {film['title']} ({film.get('year')}) : rien trouvé {label or ''}")
-        time.sleep(PAUSE)  # reste poli avec l'API distante
+        time.sleep(PAUSE)
 
     print()
     print(f"{len(found)} affiches trouvées, {len(missing)} films sans affiche")

@@ -70,15 +70,15 @@ def serialize(value):
     if isinstance(value, ObjectId):
         return str(value)
     if isinstance(value, list):
-        return [serialize(v) for v in value]
+        return [serialize(val) for val in value]
     if isinstance(value, dict):
-        return {k: serialize(v) for k, v in value.items()}
+        return {key: serialize(val) for key, val in value.items()}
     return value
 
 
 def public_user(user):
     """User public : sans password_hash, ObjectId convertis."""
-    return serialize({k: v for k, v in user.items() if k != "password_hash"})
+    return serialize({key: val for key, val in user.items() if key != "password_hash"})
 
 # Pagination
 
@@ -194,6 +194,6 @@ def validate_film(data):
 def validate_roles(data):
     roles = data.get("roles")
     if (not isinstance(roles, list) or "user" not in roles
-            or len(roles) != len(set(roles)) or any(r not in ROLES for r in roles)):
+            or len(roles) != len(set(roles)) or any(role not in ROLES for role in roles)):
         raise invalid('roles doit contenir "user", sans doublon ni valeur inconnue')
     return roles
